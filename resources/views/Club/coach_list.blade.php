@@ -38,10 +38,10 @@
 										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
-													<th>教练名称</th>
-													<th>教练类型</th>
-													<th class="hidden-480">教练简介</th>
-													<th class="hidden-480">操作</th>
+													<th class="col-xs-2">教练名称</th>
+													<th class="col-xs-2">教练类型</th>
+													<th class="hidden-480 col-xs-6">教练简介</th>
+													<th class="hidden-480 col-xs-2">操作</th>
 												</tr>
 											</thead>
 
@@ -51,7 +51,7 @@
 													<td>
 														<a href="#">{{$data[$i]['name']}}</a>
 													</td>
-													<td><span class="label label-sm label-warning">{{$data[$i]['num']}}</span></td>
+													<td><span class="label label-sm label-warning">{{$data[$i]['type']}}</span></td>
 
 													<td class="hidden-480">
 														{{$data[$i]['intro']}}
@@ -60,11 +60,11 @@
 														<div class="hidden-sm hidden-xs btn-group">
 
 
-															<button class="btn btn-xs btn-info">
+															<button class="btn btn-xs btn-info" onclick="window.location='coach_editview/{{$data[$i]['id']}}'">
 																<i class="ace-icon fa fa-pencil bigger-120"></i>
 															</button>
 
-															<button class="btn btn-xs btn-danger" onclick="coach_delete/{{$data[$i]['id']}}">
+															<button class="btn btn-xs btn-danger" onclick="window.location='coach_delete/{{$data[$i]['id']}}'">
 																<i class="ace-icon fa fa-trash-o bigger-120"></i>
 															</button>
 														</div>

@@ -34,15 +34,15 @@
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
 								<div class="row">
-									<div class="col-xs-12">
+									<div class="col-xs-12 center">
 										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
-                          <th>视频海报</th>
-													<th>视频名称</th>
-													<th>视频简介</th>
-													<th class="hidden-480">视频网址</th>
-													<th class="hidden-480">操作</th>
+                          <th class="col-xs-2">视频海报</th>
+													<th class="col-xs-2">视频名称</th>
+													<th class="col-xs-5">视频简介</th>
+													<th class="hidden-480 col-xs-2">视频网址</th>
+													<th class="hidden-480 col-xs-1">操作</th>
 												</tr>
 											</thead>
 
@@ -50,25 +50,29 @@
                         @for ($i = 0, $len = count($data); $i < $len; $i++)
 												<tr>
                           <td>
-														<img src="{{$data[$i]['pic']}}" alt=""></a>
+                            <div align="center">
+                              <img src="{{asset($data[$i]['pic'])}}" alt="" style="height:100px;width:200px;"  >
+                            </div>
 													</td>
-													<td>
-														{{$data[$i]['name']}}
+													<td class="center" style="vertical-align:middle">
+														<a href="#">{{$data[$i]['name']}}</a>
 													</td>
-													<td>{{$data[$i]['intro']}}</td>
+													<td class="center" style="vertical-align:middle">{{$data[$i]['intro']}}</td>
 
 													<td class="hidden-480">
-														<a href="{{$data[$i]['address']}}">{{$data[$i]['address']}}</a>
+                            <video src="{{asset($data[$i]['address'])}}"  controls height="100px" width="200px" poster="posterimage.jpg">
+
+                            </video>
 													</td>
-													<td>
+													<td style="vertical-align:middle">
 														<div class="hidden-sm hidden-xs btn-group">
 
 
-															<button class="btn btn-xs btn-info">
+															<button class="btn btn-xs btn-info" onclick="window.location='video_editview/{{$data[$i]['id']}}'">
 																<i class="ace-icon fa fa-pencil bigger-120"></i>
 															</button>
 
-															<button class="btn btn-xs btn-danger" onclick="coach_delete/{{$data[$i]['id']}}">
+															<button class="btn btn-xs btn-danger" onclick="window.location='video_delete/{{$data[$i]['id']}}'">
 																<i class="ace-icon fa fa-trash-o bigger-120"></i>
 															</button>
 														</div>

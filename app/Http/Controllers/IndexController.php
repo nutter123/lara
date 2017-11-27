@@ -7,31 +7,61 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Request;
 
-class IndexController extends ComController
+class IndexController extends ConController
 {
-      public function index(){
-          return view('Index/login');
+      public function clubadmin_index(){
+        $data = 0;
+        return view('Index/login')->with('data',$data);
       }
-        public function login(Request $request){
-          $admin = Request::input('email');
+      public function admin_index(){
+        $data = 1;
+          return view('Index/login')->with('data',$data);
+      }
+      public function superadmin_index(){
+        $data = 2;
+          return view('Index/login')->with('data',$data);
+      }
+        public function clubadmin_login(Request $request){
+          $admin = Request::input('name');
           $pass = md5(Request::input('password'));
           $result = DB::select('select * from clubadmin where adminnum = ?&&password = ?',[$admin,$pass]);
           if($result==null){
             return "密码错误";
-       }else {
-            session("adminnumber",$admin);
+          }else {
+            Session::put('admin',$admin);
             return redirect()->action('ClubController@coach_list');
         }
 
       }
-    public function editActivityClass()
-    {
+      public function admin_login(Request $request){
+        $admin = Request::input('name');
+        $pass = md5(Request::input('password'));
+        $result = DB::select('select * from admin where adminnum = ?&&password = ?',[$admin,$pass]);
+        if($result==null){
+          return "密码错误";
+        }else {
+          Session::put('admin',$admin);
+          return redirect()->action('ClubController@coach_list');
+      }
 
-        $input = Request::all();
-        $date['activityname'] = $input['activity_name'];
-        $res = DB::table('activities')->where(array("id" => $input['activity_id']))->update($date);
-        return back()->with('success', '修改成功');
     }
+    public function superadmin_login(Request $request){
+      $admin = Request::input('name');
+      $pass = md5(Request::input('password'));
+      $result = DB::select('select * from superadmin where adminnum = ?&&password = ?',[$admin,$pass]);
+      if($result==null){
+        return "密码错误";
+      }else {
+        Session::put('admin',$admin);
+        return redirect()->action('AdminController@admin_index');
+    }
+
+  }
+  public function loginout(){
+    session()->flush();
+    return redirect()->action('IndexController@admin_index');
+  }
 }

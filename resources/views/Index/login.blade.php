@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 		<title>约健@yield('title')</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
@@ -10,27 +11,42 @@
 		<script type="text/javascript" src="{{asset('assets/Js/jquery-1.7.2.min.js')}}"></script>
 		<script type="text/javascript" src="{{asset('assets/Js/js.js')}}"></script>
 	</head>
+	<style>
+	.ibar {display: none;}
+</style>
 	<body class="login-bg">
 		<div class="main ">
 			<!--登录-->
 			<div class="login-dom login-max">
 				<div class="logo text-center">
 					<a href="#">
-					<img src="{{asset('asset/images/logo.png')}}" width="180px" height="180px">
+					<img src="{{asset('assets/images/logo1.png')}}" width="180px" height="180px">
 					</a>
 				</div>
 				<div class="login container " id="login">
 					<p class="text-big text-center logo-color">
 						约键系统
 					</p>
+					@if($data==0)
 					<p class=" text-center margin-small-top logo-color text-small">
-						俱乐部控制台 | 管理员管理平台
+						俱乐部管理控制台
 					</p>
-					<form class="login-form" action="{{url('Index/login')}}" method="post" autocomplete="off">
+					<form class="login-form" action="{{url('Index/clubadmin_login')}}" method="post" autocomplete="off">
+					@elseif($data==1)
+					<p class=" text-center margin-small-top logo-color text-small">
+						管理员控制台
+					</p>
+					<form class="login-form" action="{{url('Index/admin_login')}}" method="post" autocomplete="off">
+					@else
+					<p class=" text-center margin-small-top logo-color text-small">
+						超管控制台
+					</p>
+					<form class="login-form" action="{{url('Index/superadmin_login')}}" method="post" autocomplete="off">
+					@endif
 						<div class="login-box border text-small" id="box">
 
 							<div class="name border-bottom">
-								<input type="text" placeholder="手机 / 邮箱 / 某某账号" id="email" name="email" datatype="*" nullmsg="请填写帐号信息">
+								<input type="text" placeholder="手机 / 邮箱 / 某某账号" id="email" name="name" datatype="*" nullmsg="请填写帐号信息">
 							</div>
 							<div class="pwd">
 								<input type="password" placeholder="密码" datatype="*" id="password" name="password" nullmsg="请填写帐号密码">
@@ -40,7 +56,8 @@
 						<input type="submit" class="btn text-center login-btn" value="立即登录">
 					</form>
 					<div class="forget">
-						<a href="repassword.html" class="forget-pwd text-small fl">忘记登录密码？</a><a href="register.html" class="forget-new text-small fr" id="forget-new">创建一个新账号</a>
+						<a href="{{url('Index/superadmin_index')}}" class="forget-pwd text-small fl">超管登录</a>
+						<a href="{{url('Index/clubadmin_index')}}" class="forget-new text-small fr" id="forget-new">俱乐部管理登录</a>
 					</div>
 				</div>
 			</div>
